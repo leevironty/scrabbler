@@ -1,0 +1,19 @@
+.board {
+    border: 1px solid black;
+}
+
+.activeRow {
+    background-color: rgb(245, 169, 29);
+}
+#activeCell {
+    background-color: rgb(218, 17, 17);
+}
+
+.board input[type="text"] {
+    width: 3vw;
+    height: 3vw;
+    text-align: center;
+    border-width: 1px;
+    border-style: solid;
+    /* caret-color: transparent; */
+}
