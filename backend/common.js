@@ -1,11 +1,3 @@
-const wordList = [
-  'kissa',
-  'kala',
-  'kana',
-  'kalakukko',
-  'kissakala',
-]
-
 const letterPoints = {
   'a': 1,
   'b': 8,
@@ -62,4 +54,4 @@ const letterCounts = {
 
 const letterSet = Object.keys(letterPoints)
 
-export {letterPoints, letterCounts, letterSet, wordList}
+module.exports = {letterPoints, letterCounts, letterSet}

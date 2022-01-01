@@ -10,7 +10,7 @@ app.post('/api/solve', (req, res) => {
   console.log(req.body)
   const {board, hand} = req.body
   console.assert(board && hand, 'board or hand not present in body')
-  res.json(solver.findInitialPoints(board, 5, null))
+  res.json(solver.solve(board, hand))
 })
 
 app.listen(port, () => {

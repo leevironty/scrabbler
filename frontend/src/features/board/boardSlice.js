@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = Array(15).fill(Array(15).fill(''))
+const boardSize = 15
+
+const initialState = Array(boardSize).fill(Array(boardSize).fill(''))
 
 const boardSlice = createSlice({
   name: 'board',
