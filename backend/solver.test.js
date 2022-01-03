@@ -194,11 +194,10 @@ describe('getRoots', () => {
   ]
   test('Finds unpopulated roots', () => {
     const res = solver.getRoots(board, 4, false)
-    // console.log(res)
     expect(res.roots).toEqual([...Array(7).keys()])
     expect(res.constraints[0]).toEqual(new Set())
-    expect(res.constraints[1]).toEqual(new Set('s'))
-    expect(res.constraints[4]).toEqual(new Set('lnms'))
+    expect(res.constraints[1]).toEqual(new Set('sk'))
+    expect(res.constraints[4]).toEqual(new Set('lnmsr'))
   })
   test('Finds populated roots', () => {
     const res = solver.getRoots(board, 1, true)
@@ -233,7 +232,7 @@ describe('expandTree', () => {
   })
   test('Finds more complex solutions', () => {
     const row = [...'     a     '].map(l => l.replace(' ', ''))
-    const root = 2
+    const root = 5
     const hand = [...'kanertoi']
     const constraints = {}
     const res = solver.expandTree(row, root, hand, constraints)

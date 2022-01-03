@@ -52,6 +52,108 @@ const letterCounts = {
   'ö': 1,
 }
 
+const multiplierBoard = [
+  [
+    'e', '',  '',  'f', '', '',
+    '',  'e', '',  '',  '', 'f',
+    '',  '',  'e'
+  ],
+  [
+    '', 'r', '', '',  '', 'd',
+    '', '',  '', 'd', '', '',
+    '', 'r', ''
+  ],
+  [
+    '',  '', 'r', '', '', '',
+    'f', '', 'f', '', '', '',
+    'r', '', ''
+  ],
+  [
+    'f', '',  '',  'r', '', '',
+    '',  'f', '',  '',  '', 'r',
+    '',  '',  'f'
+  ],
+  [
+    '', '', '', '', 'r', '',
+    '', '', '', '', 'r', '',
+    '', '', ''
+  ],
+  [
+    '', 'd', '', '',  '', 'd',
+    '', '',  '', 'd', '', '',
+    '', 'd', ''
+  ],
+  [
+    '',  '', 'f', '', '', '',
+    'f', '', 'f', '', '', '',
+    'f', '', ''
+  ],
+  [
+    'e', '',  '',  'f', '', '',
+    '',  'r', '',  '',  '', 'f',
+    '',  '',  'e'
+  ],
+  [
+    '',  '', 'f', '', '', '',
+    'f', '', 'f', '', '', '',
+    'f', '', ''
+  ],
+  [
+    '', 'd', '', '',  '', 'd',
+    '', '',  '', 'd', '', '',
+    '', 'd', ''
+  ],
+  [
+    '', '', '', '', 'r', '',
+    '', '', '', '', 'r', '',
+    '', '', ''
+  ],
+  [
+    'f', '',  '',  'r', '', '',
+    '',  'f', '',  '',  '', 'r',
+    '',  '',  'f'
+  ],
+  [
+    '',  '', 'r', '', '', '',
+    'f', '', 'f', '', '', '',
+    'r', '', ''
+  ],
+  [
+    '', 'r', '', '',  '', 'd',
+    '', '',  '', 'd', '', '',
+    '', 'r', ''
+  ],
+  [
+    'e', '',  '',  'f', '', '',
+    '',  'e', '',  '',  '', 'f',
+    '',  '',  'e'
+  ]
+]
+
+const letterMultiplier = ({row, col}) => {
+  const letter = multiplierBoard[row][col]
+  switch (letter) {
+    case 'd':
+      return 3
+    case 'f':
+      return 2
+    default:
+      return 1
+  }
+}
+
+const wordMultiplier = ({row, col}) => {
+  const letter = multiplierBoard[row][col]
+  switch (letter) {
+    case 'e':
+      return 3
+    case 'r':
+      return 2
+    default:
+      return 1
+  }
+}
+
 const letterSet = Object.keys(letterPoints)
 
-module.exports = {letterPoints, letterCounts, letterSet}
+module.exports = {letterPoints, letterCounts, letterSet, letterMultiplier, wordMultiplier}

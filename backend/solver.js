@@ -1,128 +1,8 @@
 const DICTIONNARY = require('./wordList').words
+// const CHAR_SET = require('./common').letterSet
+const pieces = require('./common')
+const CHAR_SET = pieces.letterSet
 
-const CHAR_SET = require('./common').letterSet
-
-
-// const findProposals = (word, row) => {
-//   const proposalOk = (proposal) => {
-//     for (let i = proposal; i < word.length + proposal; i++) {
-//       if (row[i] !== '' && row[i] !== word[i - proposal]) {
-//         return false
-//       }
-//     }
-//     return true
-//   }
-//   const solutions = []
-//   for (let i = 0; i < row.length - word.length; i++) {
-//     if (proposalOk(i)) {
-//       solutions.push(i)
-//     }
-//   }
-//   return solutions
-// }
-
-
-// const initialRow = [...'   a  kukko']
-// let perumtedRow = [...initialRow]
-// const letters = [...'kal']
-
-// const extractRow = (board, rowNo=null, colNo=null) => {
-//   console.assert(
-//     (rowNo !== null && colNo === null) || (rowNo === null && colNo !== null),
-//     'Vain toisen pitää olla null.'
-//   )
-//   if (rowNo !== null && (rowNo < 0 || rowNo >= board.length)) {
-//      return null
-//   } else if (colNo < 0 || rowNo >= board[0].length) {
-//     return null
-//   }
-//   const row = (rowNo !== null) ? [...board[rowNo]] : board.map(row => row[colNo])
-//   return row
-// }
-
-// const findConstraints = (board, point, horizontal) => {
-//   // etsitään constraintit tyhjälle ruudulle
-//   console.log('Finding constraints')
-//   console.assert(board[point.row][point.col] === '')
-//   const row = extractRow(
-//     board,
-//     rowNo = !horizontal ? point.row : null,
-//     colNo = !horizontal ? null : point.col
-//   )
-//   // löydetään ylempi ja alempi pätkä
-//   const index = !horizontal ? point.col : point.row
-//   let lowerPart = ''
-//   let pointer = index - 1
-//   while (pointer >= 0 && row[pointer] !== '') {
-//     lowerPart = row[pointer] + lowerPart
-//     pointer -= 1
-//   }
-//   let upperPart = ''
-//   pointer = index + 1
-//   while (pointer < row.length && row[pointer] !== '') {
-//     // console.log('Searching upper part: ', {pointer, value: row[pointer]})
-//     upperPart = upperPart + row[pointer]
-//     pointer += 1
-//   }
-//   // regexi näiden pätkien perusteella
-//   const pattern = new RegExp(`^${lowerPart}[${[...CHAR_SET].reduce((s, l) => s+'|'+l)}]${upperPart}$`)
-//   const smallWordList = DICTIONNARY.filter(w => pattern.test(w))
-//   const feasible = smallWordList.map(w => w[lowerPart.length])
-//   // console.log({point, horizontal, row, upperPart, lowerPart, pattern, smallWordList, feasible})
-//   // console.log('row: ', row)
-//   // console.log('upper: ', upperPart)
-//   // console.log('lower: ', lowerPart)
-//   // console.log('pattern: ', String(pattern))
-//   return feasible
-  
-// }
-
-// const findInitialPoints = (board, rowNo=null, colNo=null) => {
-//   console.assert(
-//     (rowNo !== null && colNo === null) || (rowNo === null && colNo !== null),
-//     'Vain toisen pitää olla null.'
-//   )
-
-//   // poimitaan tarkasteltu rivi
-//   const row = extractRow(board, rowNo, colNo)
-
-//   // poimitaan jo populoidut aloituspisteet
-//   const populatedPoints = []
-//   let last = ''
-//   for (let i = 0; i < row.length; i++) {
-//     if (last === '' && row[i] !== '') {
-//       populatedPoints.push(i)
-//     }
-//     last = row[i]
-//   }
-
-//   // poimitaan populoimattomat aloituspisteet
-//   const unpopulatedPoints = []
-//   const upperRow = (rowNo !== null) ? 
-//     extractRow(board, rowNo + 1, colNo) :
-//     extractRow(board, rowNo, colNo + 1)
-//   const lowerRow = (rowNo !== null) ? 
-//     extractRow(board, rowNo - 1, colNo) :
-//     extractRow(board, rowNo, colNo - 1)
-//   for (let i = 0; i < row.length; i++) {
-//     if (row[i] === '' && ((upperRow !== null && upperRow[i] !== '') || (lowerRow !== null && lowerRow[i] !== ''))) {
-//       unpopulatedPoints.push(i)
-//     }
-//   }
-//   const constraints = unpopulatedPoints.map(i => findConstraints(
-//     board,
-//     {
-//       row: rowNo !== null ? rowNo : i,
-//       col: rowNo !== null ? i : colNo
-//     },
-//     rowNo !== null
-//   ))
-//   return {
-//     populated: populatedPoints,
-//     unpopulated: unpopulatedPoints,
-//     constraints: constraints,
-//   }
-// }
 
 const findEmpty = (row, index, forward=true) => {
   let i = index
@@ -134,28 +14,7 @@ const findEmpty = (row, index, forward=true) => {
   }
 }
 
-// const findOptions = (row, index) => {
-//   const lower = findEmpty(row, index, false)
-//   const upper = findEmpty(row, index, true)
-//   return [lower, (lower !== upper) ? upper : null]
-// }
-
 const getInitialPointers = (row, index) => {
-  // const lower = findEmpty(row, index, false)
-  // const upper = findEmpty(row, index, true)
-  // const pointers = []
-  // if (lower) {
-  //   pointers.push({
-  //     position: lower,
-  //     forward: false,
-  //   })
-  // }
-  // if (upper) {
-  //   pointers.push({
-  //     position: upper,
-  //     forward: true,
-  //   })
-  // }
   const lowerPart = getContinuousString(row, index, false)
   const upperPart = getContinuousString(row, index, true)
   const pointers = [
@@ -171,44 +30,6 @@ const getInitialPointers = (row, index) => {
   return pointers
 }
 
-// const permute = (hand, row, populated, unpopulated, constraints) => {
-  
-// }
-
-// const expand = (row, hand, words, substring, locations, conditions) => {
-
-//   /*
-//   Triviaali ratkaisu löydetään, kun etsitään permutaatioita toiseen suuntaan.
-//   1. wordList vs substring
-//     - jos löytyy eksakti matchi, lisätään se ratkaisuihin
-//     - filteröidään substringin mukaan
-//     - jos tässä kohtaa on tyhjä sanalista, voidaan palauttaa tyhjä ratkaisulista
-//   2. haarautuminen
-//     - kullekin lokaatiolle:
-//       - lokaatiolle uusi constraintin mukainen kirjain
-//       - lokaation päivitys
-//       - substring päivitys
-//       - käden kirjainten päivitys
-//       - löydetyt ratkaisut lisätään ratkaisuihin
-//   3. palautetaan kaikki löydetyt ratkaisut
-//   */
-//  const solutions = []
-//   if (words.includes(substring)) {
-//     solutions.push(substring)
-//   }
-//   const filteredWords = words.filter(w => w.includes(substring))
-//   if (filteredWords.length === 0) {
-//     return solutions
-//   }
-//   for ([loc, dir] in [[locations[0], -1], [locations[1], 1]]) {
-//     let constraint
-//     if (conditions.unpopulated.includes(loc)) {
-//       constraint = conditions.constraints[conditions.unpopulated.find(loc)]
-//     }
-//     const setC = new Set(constraint)
-//     const feasibleLetters = constraint ? [...new Set(hand)].filter(x => setC.has(x)): hand
-//   }
-// }
 
 const getRow = (board, index, horizontal) => {
   const row = horizontal ? [...board[index]] : board.map(e => e[index])
@@ -233,6 +54,7 @@ const getContinuousString = (row, index, forward) => {
   return value
 }
 
+
 const getValidLetters = (row, index) => {
   const lowerPart = getContinuousString(row, index - 1, false)
   const upperPart = getContinuousString(row, index + 1, true)
@@ -240,7 +62,6 @@ const getValidLetters = (row, index) => {
   const pattern = new RegExp(`^${lowerPart}${charSetPattern}${upperPart}$`)
   const validWords = DICTIONNARY.filter(word => pattern.test(word))
   const validLetters = new Set(validWords.map(word => word[lowerPart.length]))
-  // console.log({row, index, lowerPart, upperPart, validWords})
   return validLetters
 }
 
@@ -262,12 +83,43 @@ const getRoots = (board, index, horizontal) => {
   return { roots, constraints }
 }
 
+const generateRowIndexToPos = (index, horizontal) => {
+  return (i) => {
+    return {
+      row: horizontal ? index : i,
+      col: horizontal ? i : index,
+      horizontal,
+    }
+  }
+}
 
+const getScore = (row, pointers, substring, rowIndexToPos) => {
+  const start = pointers.filter(p => !p.forward)[0].position
+  let total = 0
+  let wordMultiplier = 1
+  for (let i = 0; i < substring.length; i++) {
+    if (row[start + 1 + i] === '') {
+      total += pieces.letterPoints[substring[i]] * pieces.letterMultiplier(rowIndexToPos(start + i + 1))
+      wordMultiplier *= pieces.wordMultiplier(rowIndexToPos(start + i + 1))
+    }
+  }
+  return total * wordMultiplier
+}
 
-const expandTree = (row, root, hand, constraints) => {
+const getSolutionObject = (row, pointers, rowIndexToPos, substring) => {
+  const points = getScore(row, pointers, substring, rowIndexToPos)
+  const start = pointers.filter(p => !p.forward)[0].position
+  const pos = rowIndexToPos(start + 1)
+  return {
+    word: substring,
+    points: points,
+    location: pos,
+  }
+}
+
+const expandTree = (row, root, hand, constraints, rowIndexToPos) => {
   const innerCache = new Set()
   const inner = (pointers, substring, hand, words) => {
-    // console.log({pointers, substring, hand, words})
     const cacheKey = `[${[...pointers.map(p => p.position)].sort().reduce((l, r) => l + '/' + r, '')}]${substring}`
     if (innerCache.has(cacheKey)) {
       return []
@@ -276,7 +128,7 @@ const expandTree = (row, root, hand, constraints) => {
     }
     const solutions = []
     if (words.includes(substring)) {
-      solutions.push(substring)
+      solutions.push(getSolutionObject(row, pointers, rowIndexToPos, substring))
     }
     const newWords = words.filter(w => w.includes(substring))
     if (newWords.length === 0) {
@@ -344,8 +196,8 @@ const solveRow = (board, index, horizontal, hand) => {
   const solutions = []
   let lastRoot = row.length
   roots.forEach(root => {
-    const treeRow = row.slice(0, lastRoot)
-    solutions.push(...expandTree(treeRow, root, hand, constraints))
+    const treeRow = row.slice(0, lastRoot - (constraints[lastRoot] ? 0 : 1))
+    solutions.push(...expandTree(treeRow, root, hand, constraints, generateRowIndexToPos(index, horizontal)))
     lastRoot = root
   })
   return solutions
@@ -359,8 +211,11 @@ const solve = (board, hand) => {
       solutions.push(...solveRow(board, index, horizontal, hand))
     }
   }
-  return solutions
+
+  return solutions.filter(s => s.points > 0).sort((a, b) => b.points - a.points)
 }
+
+
 module.exports = { 
   solve,
   solveRow,
