@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import styles from './board.module.css'
 import {place} from './boardSlice'
 import {newPos, moveForward, moveBackwards, toggleDir} from '../controls/controlsSlice'
-import {letterSet} from '../common'
+import {letterSet, multiplierBoard} from '../common'
 
 const Row = ({letters, rowNum}) => {
   const dispatch = useDispatch()
@@ -68,11 +68,23 @@ const Row = ({letters, rowNum}) => {
     }
   })
 
+  const getClassName = (index) => {
+    const letterToClassMap = {
+      e: styles.word3x,
+      r: styles.word2x,
+      d: styles.letter3x, 
+      f: styles.letter2x,
+      '': null,
+    }
+    const activePart = (horizontal && active.row === rowNum) || (!horizontal && active.col === index) ? styles.activeRow : null
+    const multiplierPart = letterToClassMap[multiplierBoard[rowNum][index]]
+    return `${activePart} ${multiplierPart}`
+  }
   return (
     <div>
       {letters.map((el, index) => 
         <input 
-          className={(horizontal && active.row === rowNum) || (!horizontal && active.col === index) ? styles.activeRow : null}
+          className={getClassName(index)}
           key={index}
           value={el}
           onChange={(e)=> undefined}  // tällä vaiennetaan reactin varoitukset

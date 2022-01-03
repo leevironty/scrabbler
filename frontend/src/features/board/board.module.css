@@ -15,5 +15,21 @@
     text-align: center;
     border-width: 1px;
     border-style: solid;
-    /* caret-color: transparent; */
+    caret-color: transparent;
+}
+
+.word3x {
+    background-color: red;
+}
+
+.word2x {
+    background-color: orange;
+}
+
+.letter3x {
+    background-color: blue;
+}
+
+.letter2x {
+    background-color: aqua;
 }
