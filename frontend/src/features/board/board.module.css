@@ -1,35 +1,97 @@
 .board {
     border: 1px solid black;
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+    padding:3px;
+    justify-items: center;
+    align-items: center;
 }
 
-.activeRow {
-    background-color: rgb(245, 169, 29);
+.board div.activeRow {
+    outline: 3px solid #fff;
+    outline-offset: -6px;
 }
 #activeCell {
-    background-color: rgb(218, 17, 17);
+    /* background-color: rgb(218, 17, 17); */
+    outline: 6px solid #555;
+    outline-offset: -6px;
+    z-index: 100;
 }
 
-.board input[type="text"] {
-    width: 3vw;
-    height: 3vw;
+/* .board input {
+    width: calc(100%/15 - 2px);
+    aspect-ratio: 1;
+    padding:0;
     text-align: center;
     border-width: 1px;
     border-style: solid;
     caret-color: transparent;
+    background-color: hsl(160, 42%, 49%);
+    border-color:hsl(160, 41%, 76%);
+} */
+
+.board div.letter {
+    width: 100%;
+    aspect-ratio: 1;
+    padding:0;
+    background-color: hsl(160, 42%, 49%);
+    border-color:hsl(160, 41%, 76%);
+    border-style: solid;
+    border-width: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:relative;
+}
+.board div.letter input {
+    /* width: calc(100% - 2px);
+    height: calc(100% - 2px); */
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    /* border-width: 1px;
+    border-style: solid; */
+    border: none;
+    caret-color: transparent;
+    background-color: transparent;
+    padding: 0;
+    position:relative;
+    z-index: 1;
+    /* z-index: 100; */
+    /* border-radius: 3px; */
 }
 
-.word3x {
+
+.board div.letter.word3x {
     background-color: red;
+    z-index: 10;
+    position: relative;
+}
+/* .board div.letter.word3x::before {
+    content: '';
+    height: 100%;
+    aspect-ratio: 1;
+    transform: rotate(45deg);
+    background-color: red;
+    z-index: 9;
+
+} */
+
+
+
+.board div.letter.word2x {
+    background-color: rgb(255, 144, 116);
 }
 
-.word2x {
-    background-color: orange;
+.board div.letter.letter3x {
+    background-color: rgb(34, 102, 228);
 }
 
-.letter3x {
-    background-color: blue;
+.board div.letter.letter2x {
+    background-color: rgb(145, 229, 229);
 }
 
-.letter2x {
-    background-color: aqua;
+.board div.letter input:not([value=""]) {
+    background-color: #ede4cb;
 }
