@@ -1,11 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+const BOARD_SIZE = 15
+
 const initialState = {
   horizontal: true,
   pos: {
     row: 0,
     col: 0,
   }
+}
+
+const cap = (n) => {
+  return Math.min(Math.max(n, 0), BOARD_SIZE - 1)
 }
 
 const controlSlice = createSlice({
@@ -19,20 +25,20 @@ const controlSlice = createSlice({
       if (state.pos.row === action.payload.row && state.pos.col === action.payload.col) {
         return state
       }
-      state.pos = action.payload
+      state.pos = {row: cap(action.payload.row), col: cap(action.payload.col)}
     },
     moveForward: (state) => {
       if (state.horizontal) {
-        state.pos.col += 1
+        state.pos.col = cap(state.pos.col + 1)
       } else {
-        state.pos.row += 1
+        state.pos.row = cap(state.pos.row + 1)
       }
     },
     moveBackwards: (state) => {
       if (state.horizontal) {
-        state.pos.col -= 1
+        state.pos.col = cap(state.pos.col - 1)
       } else {
-        state.pos.row -= 1
+        state.pos.row = cap(state.pos.row - 1)
       }
     }
   }

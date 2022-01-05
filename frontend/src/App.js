@@ -3,6 +3,7 @@
 import Board from './features/board/Board'
 import Hand from './features/hand/Hand'
 import SovelButton from './features/solve/Solve'
+import SolutionList from './features/solve/SolutionList'
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <Board />
       <Hand />
       <SovelButton />
+      <SolutionList />
     </>
   );
 }
