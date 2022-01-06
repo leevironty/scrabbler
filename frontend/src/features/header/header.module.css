@@ -1,0 +1,6 @@
+header {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin-bottom: 2em;
+}

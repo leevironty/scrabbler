@@ -40,6 +40,12 @@ const Board = () => {
     }
   }
 
+  const handleClick = (row, col) => (event) => {
+    if (active.row === row && active.col === col) {
+      dispatch(toggleDir())
+    }
+  }
+
   const getClassNames = (row, col) => {
     const letterToClassMap = {
       e: styles.word3x,
@@ -116,6 +122,7 @@ const Board = () => {
                 value={letter}
                 onBeforeInput={handleInput(rowNum, colNum)}
                 onFocus={handleFocus(rowNum, colNum)}
+                onMouseDown={handleClick(rowNum, colNum)}
                 onKeyDown={handleKeydown(rowNum, colNum)}
                 type='text'
               />

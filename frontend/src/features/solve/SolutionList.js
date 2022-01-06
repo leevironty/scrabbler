@@ -4,7 +4,7 @@ const SolutionList = () => {
   const solutions = useSelector(state => state.solutions)
   return (
     <>
-      <h2>Found solutions</h2>
+      <h2>Löydetyt sanat</h2>
       <ul>
         {solutions.map(({word, points, location}, index) => 
           <li key={index}>

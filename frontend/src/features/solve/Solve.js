@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { setSolutions } from './solutionsSlice'
+import { Button } from 'bootstrap'
 import axios from 'axios'
 
 const getSolution = (data) => {
@@ -17,13 +18,13 @@ const SolveButton = () => {
   const dispatch = useDispatch()
   const board = useSelector(state => state.board)
   const hand = useSelector(state => state.hand)
-  const handleClick = async (event) => {
+  const handleSubmit = async (event) => {
     dispatch(getSolution({board, hand}))
   }
   return (
-    <button onClick={handleClick}>
+    <Button type='submit'>
       Solve!
-    </button>
+    </Button>
   )
 }
 
