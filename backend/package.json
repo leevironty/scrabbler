@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
+    "docker": "NODE_ENV=docker node index.js",
     "test": "jest",
     "parse": "node parseWords.js"
   },

@@ -28,12 +28,15 @@ const Hand = () => {
     dispatch(getSolution(event.target.hand.value))
   }
   return (
-    <Form onSubmit={handleSubmit}>
-      <Stack direction='horizontal' gap={3}>
-        <Form.Control type='text' name='hand'/>
-        <Button type='submit'>Ratkaise</Button>
-      </Stack>
-    </Form>
+    <>
+      <h2>Käsi</h2>
+      <Form onSubmit={handleSubmit} autocomplete='off'>
+        <Stack direction='horizontal' gap={3}>
+          <Form.Control type='text' name='hand'/>
+          <Button type='submit'>Ratkaise</Button>
+        </Stack>
+      </Form>
+    </>
   )
 }
 

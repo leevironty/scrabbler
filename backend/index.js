@@ -1,11 +1,18 @@
 const express = require('express')
+// const dotenv = require('dotenv')
 const cors = require('cors')
 const path = require('path')
 const solver = require('./solver')
 const app = express()
-const port = 3003
+const PORT = process.env.PORT
+const HOST = '0.0.0.0'
 
-app.use(express.static(path.resolve(__dirname, '../frontend/build')))
+if (process.env.NODE_ENV === 'docker') {
+  app.use(express.static(path.resolve(__dirname, './static')))
+} else {
+  app.use(express.static(path.resolve(__dirname, '../frontend/build')))
+}
+
 app.use(cors())
 app.use(express.json(strict=false))
 app.post('/api/solve', (req, res) => {
@@ -15,6 +22,6 @@ app.post('/api/solve', (req, res) => {
   res.json(solver.solve(board, hand))
 })
 
-app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}`)
+app.listen(PORT, HOST, () => {
+  console.log(`Listening at http://${HOST}:${PORT}`)
 })

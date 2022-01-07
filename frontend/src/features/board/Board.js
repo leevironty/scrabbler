@@ -20,6 +20,7 @@ const Board = () => {
   const active = useSelector(state => state.control.pos)
 
   const handleInput = (row, col) => (event) => {
+    console.log(event)
     event.preventDefault()
     let key = event.data.toLowerCase()
     if (key === ' ') {
@@ -35,12 +36,14 @@ const Board = () => {
   }
 
   const handleFocus = (row, col) => (event) => {
+    console.log(event)
     if (active.row !== row || active.col !== col) {
       dispatch(newPos({row, col}))
     }
   }
 
   const handleClick = (row, col) => (event) => {
+    console.log(event)
     if (active.row === row && active.col === col) {
       dispatch(toggleDir())
     }
@@ -65,6 +68,7 @@ const Board = () => {
   }
 
   const handleKeydown = (row, col) => (event) => {
+    console.log(event)
     const arrowToPos = (arrow) => {
       switch (arrow) {
         case 'ArrowRight':
@@ -104,12 +108,38 @@ const Board = () => {
     }
   }
 
+  const handleChange = (row, col) => (event) => {
+    console.log(event)
+    event.preventDefault()
+    let key = event.nativeEvent.data.toLowerCase()
+    if (key === ' ') {
+      dispatch(moveForward())
+      return
+    }
+    if (!letterSet.includes(key)) {
+      return
+    }
+    dispatch(place({pos: {row, col}, letter: key}))
+    dispatch(moveForward())
+    event.target.blur()
+  }
+
   useEffect(() => {
     const el = document.getElementById(styles.activeCell)
     if (el) {
       el.focus()
     }
   })
+
+  const registerHandlers = (row, col) => {
+    return {
+      // onBeforeInput: handleInput(row, col),
+      onFocus: handleFocus(row, col),
+      onMouseDown: handleClick(row, col),
+      onKeyDown: handleKeydown(row, col),
+      onChange: handleChange(row, col),
+    }
+  }
 
   return (
     <div className={styles.board} >
@@ -120,10 +150,7 @@ const Board = () => {
               <input 
                 id={isActive(rowNum, colNum)}
                 value={letter}
-                onBeforeInput={handleInput(rowNum, colNum)}
-                onFocus={handleFocus(rowNum, colNum)}
-                onMouseDown={handleClick(rowNum, colNum)}
-                onKeyDown={handleKeydown(rowNum, colNum)}
+                {...registerHandlers(rowNum, colNum)}
                 type='text'
               />
             </div>
