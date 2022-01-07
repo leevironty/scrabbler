@@ -11,5 +11,5 @@ build:
 	docker build --platform linux/amd64 -t scrabbler .
 
 deploy:
-	docker tag scrabbler $REMOTE_TAG
-	docker push $REMOTE_TAG
+	docker tag scrabbler ${REMOTE_TAG}
+	docker push ${REMOTE_TAG}
