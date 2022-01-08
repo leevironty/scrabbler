@@ -8,7 +8,7 @@ const SolutionList = () => {
       <ul>
         {solutions.map(({word, points, location}, index) => 
           <li key={index}>
-            {points}: {word}
+            {points}: {word} (rivi: {location.row+1}, sarake: {location.col+1}, {location.horizontal ? 'vaaka' : 'pysty'})
           </li>
         )}
       </ul>
