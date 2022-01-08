@@ -9,7 +9,18 @@ const Help = ({show, handleClose}) => {
         <Modal.Title>Kuinka tätä käytetään</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        Se on helppoa.
+        <ol>
+          <li>Täytä kenttä vastaamaan tilannetta pelissä
+            <ul>
+              <li>Ruudin klikkaaminen avaa kirjainten syötön.</li>
+              <li>Enterin/aktiivisen ruudun klikkaus muuttaa syöttysuunnan.</li>
+            </ul>
+          </li>
+          <li>Kerro, mitä kirjaimia kädestä löytyy.</li>
+          <li>Ratkaise -> ratkaisut ilmestyvät hetken kuluttua</li>
+        </ol>
+        <hr/>
+        Sanavarastona on taivuttamaton Kotuksen sanakirja vuodelta 2007 :D <br/><br/>Sillä kuitenkin löytyy varsin hyviä pisteitä antavia ratkaisuja.
       </Modal.Body>
     </Modal>
   )

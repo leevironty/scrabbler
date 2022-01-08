@@ -4,7 +4,7 @@ const cors = require('cors')
 const path = require('path')
 const solver = require('./solver')
 const app = express()
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3003
 const HOST = '0.0.0.0'
 
 if (process.env.NODE_ENV === 'docker') {

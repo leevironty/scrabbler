@@ -149,7 +149,7 @@ const Board = () => {
             <div className={getClassNames(rowNum, colNum)} key={`${rowNum}-${colNum}`} >
               <input 
                 id={isActive(rowNum, colNum)}
-                value={letter}
+                value={letter.toUpperCase()}
                 {...registerHandlers(rowNum, colNum)}
                 type='text'
               />
